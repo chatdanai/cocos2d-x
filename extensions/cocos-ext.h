@@ -3,6 +3,7 @@
 
 #include "ExtensionMacros.h"
 
+
 #include "CCBReader/CCBFileLoader.h"
 #include "CCBReader/CCBMemberVariableAssigner.h"
 #include "CCBReader/CCBReader.h"
@@ -32,15 +33,19 @@
 #include "CCBReader/CCData.h"
 #include "CCBReader/CCNode+CCBRelativePositioning.h"
 
+
 #include "GUI/CCControlExtension/CCControlExtensions.h"
 #include "GUI/CCScrollView/CCScrollView.h"
 #include "GUI/CCScrollView/CCTableView.h"
 #include "GUI/CCEditBox/CCEditBox.h"
 
+/*
 #include "network/HttpRequest.h"
 #include "network/HttpResponse.h"
 #include "network/HttpClient.h"
+*/
 
+/*
 #include "CocoStudio/Armature/CCArmature.h"
 #include "CocoStudio/Armature/CCBone.h"
 #include "CocoStudio/Armature/animation/CCArmatureAnimation.h"
@@ -79,7 +84,7 @@
 #include "CocoStudio/Reader/SceneReader.h"
 
 #include "CocoStudio/Action/CCActionManager.h"
-
+*/
 
 // Physics integration
 #if CC_ENABLE_CHIPMUNK_INTEGRATION || CC_ENABLE_BOX2D_INTEGRATION
