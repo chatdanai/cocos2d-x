@@ -33,4 +33,7 @@
 -(void) setAnimationInterval:(double)interval;
 +(id) sharedDirectorCaller;
 +(void) destroy;
+
+-(void) removeCALink; //LIGHTFIX
+
 @end

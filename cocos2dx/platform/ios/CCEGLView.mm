@@ -58,10 +58,11 @@ bool CCEGLView::setContentScaleFactor(float contentScaleFactor)
 
 void CCEGLView::end()
 {
+    [[CCDirectorCaller sharedDirectorCaller] removeCALink]; //LIGHTFIX
     [CCDirectorCaller destroy];
     
     // destroy EAGLView
-    [[EAGLView sharedEGLView] removeFromSuperview];
+    //LIGHTFIX [[EAGLView sharedEGLView] removeFromSuperview];
 }
 
 

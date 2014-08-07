@@ -247,6 +247,7 @@ static EAGLView *view = 0;
 
 - (void) dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];  //LIGHTFIX
     [renderer_ release];
     self.keyboardShowNotification = NULL; // implicit release
     [super dealloc];

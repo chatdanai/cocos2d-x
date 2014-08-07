@@ -67,6 +67,15 @@ static id s_sharedDirectorCaller;
     [super dealloc];
 }
 
+//LIGHTFIX
+-(void) removeCALink
+{
+    if ( displayLink != nil ) {
+        [displayLink invalidate];
+        displayLink = nil;
+    }
+}
+
 -(void) startMainLoop
 {
         // CCDirector::setAnimationInterval() is called, we should invalidate it first
