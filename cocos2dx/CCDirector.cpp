@@ -66,6 +66,10 @@ THE SOFTWARE.
 #include "CCConfiguration.h"
 
 
+#if ( (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) )
+#include "../../games-component/EasyNDK-for-cocos2dx/NDKHelper/NDKHelper.h"
+#endif
+
 
 /**
  Position of the FPS
@@ -192,6 +196,11 @@ CCDirector::~CCDirector(void)
     delete []m_pszFPS;
 
     s_SharedDirector = NULL;
+    
+#if ( (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) )
+    SendMessageWithParams(string("purgeDone"), NULL);
+#endif
+    
 }
 
 void CCDirector::setDefaultValues(void)
@@ -749,7 +758,7 @@ void CCDirector::purgeDirector()
     // OpenGL view
     m_pobOpenGLView->end();
     m_pobOpenGLView = NULL;
-
+    
     // delete CCDirector
     release();
 }

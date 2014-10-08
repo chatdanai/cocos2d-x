@@ -406,7 +406,7 @@ static EAGLView *view = 0;
     
     int i = 0;
     for (UITouch *touch in touches) {
-        ids[i] = (int)touch;
+        ids[i] = (uintptr_t)touch;
         xs[i] = [touch locationInView: [touch view]].x * view.contentScaleFactor;;
         ys[i] = [touch locationInView: [touch view]].y * view.contentScaleFactor;;
         ++i;
@@ -426,7 +426,7 @@ static EAGLView *view = 0;
     
     int i = 0;
     for (UITouch *touch in touches) {
-        ids[i] = (int)touch;
+        ids[i] = (uintptr_t)touch;
         xs[i] = [touch locationInView: [touch view]].x * view.contentScaleFactor;;
         ys[i] = [touch locationInView: [touch view]].y * view.contentScaleFactor;;
         ++i;
@@ -447,7 +447,7 @@ static EAGLView *view = 0;
     
     int i = 0;
     for (UITouch *touch in touches) {
-        ids[i] = (int)touch;
+        ids[i] = (uintptr_t)touch;
         xs[i] = [touch locationInView: [touch view]].x * view.contentScaleFactor;;
         ys[i] = [touch locationInView: [touch view]].y * view.contentScaleFactor;;
         ++i;
@@ -468,7 +468,7 @@ static EAGLView *view = 0;
     
     int i = 0;
     for (UITouch *touch in touches) {
-        ids[i] = (int)touch;
+        ids[i] = (uintptr_t)touch;
         xs[i] = [touch locationInView: [touch view]].x * view.contentScaleFactor;;
         ys[i] = [touch locationInView: [touch view]].y * view.contentScaleFactor;;
         ++i;
