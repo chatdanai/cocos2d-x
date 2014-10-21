@@ -224,6 +224,8 @@ public:
      * @return a cell at a given index
      */
     CCTableViewCell *cellAtIndex(unsigned int idx);
+    
+    void scrollToCellIndex(int index);
 
 
     virtual void scrollViewDidScroll(CCScrollView* view);

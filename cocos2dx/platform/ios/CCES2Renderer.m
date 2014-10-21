@@ -106,7 +106,7 @@
     glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_WIDTH, &backingWidth_);
     glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_HEIGHT, &backingHeight_);
 
-    NSLog(@"cocos2d: surface size: %dx%d", (int)backingWidth_, (int)backingHeight_);
+    //NSLog(@"cocos2d: surface size: %dx%d", (int)backingWidth_, (int)backingHeight_);
 
     if (multiSampling_)
     {
@@ -207,7 +207,7 @@
 
 - (void)dealloc
 {
-    NSLog(@"cocos2d: deallocing %@", self);
+    //NSLog(@"cocos2d: deallocing %@", self);
 
     // Tear down GL
     if (defaultFramebuffer_) {

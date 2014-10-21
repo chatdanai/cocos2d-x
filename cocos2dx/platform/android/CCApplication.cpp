@@ -23,6 +23,7 @@ CCApplication::CCApplication()
 
 CCApplication::~CCApplication()
 {
+	LOGD("CC BYE BYE\n");
     CCAssert(this == sm_pSharedApplication, "");
     sm_pSharedApplication = NULL;
 }

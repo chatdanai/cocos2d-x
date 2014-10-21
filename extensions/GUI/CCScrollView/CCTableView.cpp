@@ -421,6 +421,24 @@ void CCTableView::_setIndexForCell(unsigned int index, CCTableViewCell *cell)
     cell->setIdx(index);
 }
 
+void CCTableView::scrollToCellIndex(int index)
+{
+    CCPoint offset = ccpSub(CCPointZero, _offsetFromIndex(index));
+    float newX, newY;
+    CCPoint maxInset, minInset;
+    
+    maxInset = this->maxContainerOffset();
+    minInset = this->minContainerOffset();
+    
+    //check to see if offset lies within the inset bounds
+    newX     = MIN(offset.x, maxInset.x);
+    newX     = MAX(newX, minInset.x);
+    newY     = MIN(offset.y, maxInset.y);
+    newY     = MAX(newY, minInset.y);
+    
+    setContentOffset(ccp(newX, newY), false);
+}
+
 void CCTableView::_updateCellPositions() {
     int cellsCount = m_pDataSource->numberOfCellsInTableView(this);
     m_vCellsPositions.resize(cellsCount + 1, 0.0);
