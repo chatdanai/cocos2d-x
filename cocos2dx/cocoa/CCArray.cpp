@@ -310,6 +310,18 @@ void CCArray::removeAllObjects()
     ccArrayRemoveAllObjects(data);
 }
 
+void CCArray::REMOVEALLOBJECTSANDCLEAR()
+{
+    while ( true ) {
+        if ( this->count() == 0 )
+            break;
+        
+        CCObject *data = objectAtIndex(0);
+        removeObjectAtIndex(0);
+        delete data;
+    }
+}
+
 void CCArray::fastRemoveObjectAtIndex(unsigned int index)
 {
     ccArrayFastRemoveObjectAtIndex(data, index);

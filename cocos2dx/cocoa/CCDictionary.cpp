@@ -333,6 +333,18 @@ void CCDictionary::removeAllObjects()
     }
 }
 
+void CCDictionary::REMOVEALLOBJECTSANDCLEAR()
+{
+    CCDictElement *pElement, *tmp;
+    HASH_ITER(hh, m_pElements, pElement, tmp)
+    {
+        HASH_DEL(m_pElements, pElement);
+        delete pElement->m_pObject;
+        CC_SAFE_DELETE(pElement);
+        
+    }
+}
+
 CCObject* CCDictionary::copyWithZone(CCZone* pZone)
 {
     CCAssert(pZone == NULL, "CCDictionary should not be inherited.");

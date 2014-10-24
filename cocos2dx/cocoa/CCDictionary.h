@@ -326,6 +326,7 @@ public:
      *       removeObjectsForKeys(CCArray*), removeObjectForElememt(CCDictElement*).
      */
     void removeAllObjects();
+    void REMOVEALLOBJECTSANDCLEAR();
 
     /// @{
     /// @name Function override

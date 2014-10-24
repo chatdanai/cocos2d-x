@@ -205,6 +205,7 @@ public:
     void removeObjectsInArray(CCArray* otherArray);
     /** Remove all objects */
     void removeAllObjects();
+    void REMOVEALLOBJECTSANDCLEAR();
     /** Fast way to remove a certain object */
     void fastRemoveObject(CCObject* object);
     /** Fast way to remove an element with a certain index */

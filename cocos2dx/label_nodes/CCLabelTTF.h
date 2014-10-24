@@ -162,7 +162,7 @@ public:
     const char* getFontName();
     void setFontName(const char *fontName);
     
-private:
+public:
     bool updateTexture();
 protected:
     
