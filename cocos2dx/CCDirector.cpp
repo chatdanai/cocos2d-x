@@ -172,6 +172,7 @@ bool CCDirector::init(void)
 CCDirector::~CCDirector(void)
 {
     CCLOG("cocos2d: deallocing CCDirector %p", this);
+    CCLOG("start purge director 2\n");
 
     CC_SAFE_RELEASE(m_pFPSLabel);
     CC_SAFE_RELEASE(m_pSPFLabel);
@@ -200,6 +201,8 @@ CCDirector::~CCDirector(void)
 #if ( (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) )
     SendMessageWithParams(string("purgeDone"), NULL);
 #endif
+    
+    CCLOG("finish purge director 2\n");
     
 }
 
@@ -707,6 +710,7 @@ void CCDirector::end()
 
 void CCDirector::purgeDirector()
 {
+    CCLOG("start purge director 1\n");
     // cleanup scheduler
     getScheduler()->unscheduleAll();
     
@@ -761,6 +765,8 @@ void CCDirector::purgeDirector()
     
     // delete CCDirector
     release();
+    
+    CCLOG("finish purge director 1\n");
 }
 
 void CCDirector::setNextScene(void)
