@@ -761,6 +761,9 @@ void CCDirector::purgeDirector()
     
     // OpenGL view
     m_pobOpenGLView->end();
+#if ( (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) )
+    delete m_pobOpenGLView;
+#endif
     m_pobOpenGLView = NULL;
     
     // delete CCDirector

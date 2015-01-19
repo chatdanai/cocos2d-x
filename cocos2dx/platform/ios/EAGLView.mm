@@ -84,6 +84,8 @@ static EAGLView *view = 0;
 
 @implementation EAGLView
 
+@synthesize mCurrentOrientation; //LIGHTFIX
+
 @synthesize surfaceSize=size_;
 @synthesize pixelFormat=pixelformat_, depthFormat=depthFormat_;
 @synthesize context=context_;
@@ -744,7 +746,7 @@ static EAGLView *view = 0;
     CGSize viewSize = self.frame.size;
     CGFloat tmp;
     
-    switch ([[UIApplication sharedApplication] statusBarOrientation])
+    switch ([UIApplication sharedApplication].statusBarOrientation)
     {
         case UIInterfaceOrientationPortrait:
             begin.origin.y = viewSize.height - begin.origin.y - begin.size.height;
@@ -757,41 +759,53 @@ static EAGLView *view = 0;
             break;
             
         case UIInterfaceOrientationLandscapeLeft:
-            tmp = begin.size.width;
-            begin.size.width = begin.size.height;
-            begin.size.height = tmp;
-            tmp = end.size.width;
-            end.size.width = end.size.height;
-            end.size.height = tmp;
-            tmp = viewSize.width;
-            viewSize.width = viewSize.height;
-            viewSize.height = tmp;
-            
-            tmp = begin.origin.x;
-            begin.origin.x = begin.origin.y;
-            begin.origin.y = viewSize.height - tmp - begin.size.height;
-            tmp = end.origin.x;
-            end.origin.x = end.origin.y;
-            end.origin.y = viewSize.height - tmp - end.size.height;
+            if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+                begin.origin.y = viewSize.height - begin.origin.y - begin.size.height;
+                end.origin.y = viewSize.height - end.origin.y - end.size.height;
+            }
+            else {
+                tmp = begin.size.width;
+                begin.size.width = begin.size.height;
+                begin.size.height = tmp;
+                tmp = end.size.width;
+                end.size.width = end.size.height;
+                end.size.height = tmp;
+                //tmp = viewSize.width;
+                //viewSize.width = viewSize.height;
+                //viewSize.height = tmp;
+                
+                tmp = begin.origin.x;
+                begin.origin.x = begin.origin.y;
+                begin.origin.y = viewSize.height - tmp - begin.size.height;
+                tmp = end.origin.x;
+                end.origin.x = end.origin.y;
+                end.origin.y = viewSize.height - tmp - end.size.height;
+            }
             break;
             
         case UIInterfaceOrientationLandscapeRight:
-            tmp = begin.size.width;
-            begin.size.width = begin.size.height;
-            begin.size.height = tmp;
-            tmp = end.size.width;
-            end.size.width = end.size.height;
-            end.size.height = tmp;
-            tmp = viewSize.width;
-            viewSize.width = viewSize.height;
-            viewSize.height = tmp;
-            
-            tmp = begin.origin.x;
-            begin.origin.x = begin.origin.y;
-            begin.origin.y = tmp;
-            tmp = end.origin.x;
-            end.origin.x = end.origin.y;
-            end.origin.y = tmp;
+            if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+                begin.origin.y = viewSize.height - begin.origin.y - begin.size.height;
+                end.origin.y = viewSize.height - end.origin.y - end.size.height;
+            }
+            else {
+                tmp = begin.size.width;
+                begin.size.width = begin.size.height;
+                begin.size.height = tmp;
+                tmp = end.size.width;
+                end.size.width = end.size.height;
+                end.size.height = tmp;
+                tmp = viewSize.width;
+                viewSize.width = viewSize.height;
+                viewSize.height = tmp;
+                
+                tmp = begin.origin.x;
+                begin.origin.x = begin.origin.y;
+                begin.origin.y = tmp;
+                tmp = end.origin.x;
+                end.origin.x = end.origin.y;
+                end.origin.y = tmp;
+            }
             break;
             
         default:
@@ -802,13 +816,15 @@ static EAGLView *view = 0;
 	float scaleY = cocos2d::CCEGLView::sharedOpenGLView()->getScaleY();
     
     
-    if (self.contentScaleFactor == 2.0f)
+    /*if (self.contentScaleFactor == 2.0f)
     {
         // Convert to pixel coordinate
         
         begin = CGRectApplyAffineTransform(begin, CGAffineTransformScale(CGAffineTransformIdentity, 2.0f, 2.0f));
         end = CGRectApplyAffineTransform(end, CGAffineTransformScale(CGAffineTransformIdentity, 2.0f, 2.0f));
-    }
+    }*/
+    begin = CGRectApplyAffineTransform(begin, CGAffineTransformScale(CGAffineTransformIdentity, self.contentScaleFactor, self.contentScaleFactor));
+    end = CGRectApplyAffineTransform(end, CGAffineTransformScale(CGAffineTransformIdentity, self.contentScaleFactor, self.contentScaleFactor));
     
     float offestY = cocos2d::CCEGLView::sharedOpenGLView()->getViewPortRect().origin.y;
     CCLOG("offestY = %f", offestY);
@@ -875,12 +891,11 @@ static EAGLView *view = 0;
 
 	dis *= cocos2d::CCEGLView::sharedOpenGLView()->getScaleY();
     
-    if (self.contentScaleFactor == 2.0f)
-    {
-        dis /= 2.0f;
+    if (self.contentScaleFactor != 0) {
+        dis /= self.contentScaleFactor;
     }
     
-    switch ([[UIApplication sharedApplication] statusBarOrientation])
+    switch ([UIApplication sharedApplication].statusBarOrientation)
     {
         case UIInterfaceOrientationPortrait:
             self.frame = CGRectMake(originalRect_.origin.x, originalRect_.origin.y - dis, originalRect_.size.width, originalRect_.size.height);
@@ -891,11 +906,13 @@ static EAGLView *view = 0;
             break;
             
         case UIInterfaceOrientationLandscapeLeft:
-            self.frame = CGRectMake(originalRect_.origin.x - dis, originalRect_.origin.y , originalRect_.size.width, originalRect_.size.height);
+            self.frame = CGRectMake(originalRect_.origin.x, originalRect_.origin.y - dis, originalRect_.size.width, originalRect_.size.height);
+            //self.frame = CGRectMake(originalRect_.origin.x - dis, originalRect_.origin.y , originalRect_.size.width, originalRect_.size.height);
             break;
             
         case UIInterfaceOrientationLandscapeRight:
-            self.frame = CGRectMake(originalRect_.origin.x + dis, originalRect_.origin.y , originalRect_.size.width, originalRect_.size.height);
+            self.frame = CGRectMake(originalRect_.origin.x, originalRect_.origin.y - dis, originalRect_.size.width, originalRect_.size.height);
+            //self.frame = CGRectMake(originalRect_.origin.x + dis, originalRect_.origin.y , originalRect_.size.width, originalRect_.size.height);
             break;
             
         default:

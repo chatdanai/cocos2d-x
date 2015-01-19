@@ -99,7 +99,11 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
     CGRect                  originalRect_;
     NSNotification*         keyboardShowNotification_;
     BOOL                    isKeyboardShown_;
+    
+    UIInterfaceOrientation mCurrentOrientation; //LIGHTFIX
 }
+
+@property(nonatomic, assign) UIInterfaceOrientation mCurrentOrientation; //LIGHTFIX
 
 @property(nonatomic, readonly) UITextPosition *beginningOfDocument;
 @property(nonatomic, readonly) UITextPosition *endOfDocument;

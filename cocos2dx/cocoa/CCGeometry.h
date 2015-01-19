@@ -322,6 +322,7 @@ public:
     float getMaxY() const; /// return the topmost y-value of current rect
     bool equals(const CCRect& rect) const;   
     bool containsPoint(const CCPoint& point) const;
+    bool containsPoint(const CCPoint& point, bool includeNegative) const;
     bool intersectsRect(const CCRect& rect) const;
 };
 

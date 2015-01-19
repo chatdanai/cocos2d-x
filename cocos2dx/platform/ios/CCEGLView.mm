@@ -30,6 +30,8 @@ THE SOFTWARE.
 
 NS_CC_BEGIN
 
+static CCEGLView* instance = NULL;
+
 CCEGLView::CCEGLView()
 {
     m_obScreenSize.width = m_obDesignResolutionSize.width = [[EAGLView sharedEGLView] getWidth];
@@ -38,7 +40,7 @@ CCEGLView::CCEGLView()
 
 CCEGLView::~CCEGLView()
 {
-
+    instance = NULL;
 }
 
 bool CCEGLView::isOpenGLReady()
@@ -85,8 +87,10 @@ void CCEGLView::setIMEKeyboardState(bool bOpen)
 
 CCEGLView* CCEGLView::sharedOpenGLView()
 {
-    static CCEGLView instance;
-    return &instance;
+    if ( instance == NULL )
+        instance = new CCEGLView();
+    
+    return instance;
 }
 
 NS_CC_END

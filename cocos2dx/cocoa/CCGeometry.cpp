@@ -230,8 +230,7 @@ float CCRect::getMidX() const
     return (float)(origin.x + size.width / 2.0);
 }
 
-float CCRect::getMinX() const
-{
+float CCRect::getMinX() const{
     return origin.x;
 }
 
@@ -260,6 +259,27 @@ bool CCRect::containsPoint(const CCPoint& point) const
         bRet = true;
     }
 
+    return bRet;
+}
+
+bool CCRect::containsPoint(const CCPoint& point, bool includeNegative) const
+{
+    if ( includeNegative == false )
+        return containsPoint(point);
+    
+    bool bRet = false;
+    
+    float minX = MIN(origin.x, origin.x + size.width);
+    float maxX = MAX(origin.x, origin.x + size.width);
+    float minY = MIN(origin.y, origin.y + size.height);
+    float maxY = MAX(origin.y, origin.y + size.height);
+    
+    if (point.x >= minX && point.x <= maxX
+        && point.y >= minY && point.y <= maxY)
+    {
+        bRet = true;
+    }
+    
     return bRet;
 }
 
