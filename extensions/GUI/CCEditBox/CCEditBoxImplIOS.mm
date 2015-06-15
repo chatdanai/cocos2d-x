@@ -277,7 +277,8 @@ bool CCEditBoxImplIOS::initWithSize(const CCSize& size)
         CCEGLViewProtocol* eglView = CCEGLView::sharedOpenGLView();
         
         CGRect rect = CGRectMake(0, 0, size.width * eglView->getScaleX(),size.height * eglView->getScaleY());
-        
+
+
         float factor = [[EAGLView sharedEGLView] contentScaleFactor];
         rect.size.width /= factor;
         rect.size.height /= factor;
@@ -346,9 +347,9 @@ void CCEditBoxImplIOS::setFont(const char* pFontName, int fontSize)
     if(pFontName == NULL || strlen(pFontName) == 0) {
         isValidFontName = false;
     }
-    
+
     float retinaFactor = [[EAGLView sharedEGLView] contentScaleFactor];
-    NSString * fntName = [NSString stringWithUTF8String:pFontName];
+	NSString * fntName = [NSString stringWithUTF8String:pFontName];
     float scaleFactor = CCEGLView::sharedOpenGLView()->getScaleX();
     UIFont *textFont = nil;
     if (isValidFontName) {
@@ -546,7 +547,7 @@ void CCEditBoxImplIOS::setContentSize(const CCSize& size)
     
     controlSize.width /= scaleFactor;
     controlSize.height /= scaleFactor;
-    
+
     [m_systemControl setContentSize:controlSize];
 }
 
@@ -576,8 +577,8 @@ void CCEditBoxImplIOS::adjustTextFieldPosition()
     CCSize contentSize = m_pEditBox->getContentSize();
     CCRect rect = CCRectMake(0, 0, contentSize.width, contentSize.height);
     rect = CCRectApplyAffineTransform(rect, m_pEditBox->nodeToWorldTransform());
-    
-    CCPoint designCoord = ccp(rect.origin.x, rect.origin.y + rect.size.height);
+	
+	CCPoint designCoord = ccp(rect.origin.x, rect.origin.y + rect.size.height);
     [m_systemControl setPosition:convertDesignCoordToScreenCoord(designCoord)];
 }
 

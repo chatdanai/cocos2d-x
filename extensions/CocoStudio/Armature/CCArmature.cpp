@@ -141,7 +141,7 @@ bool CCArmature::init(const char *name)
 
         m_strName = name == NULL ? "" : name;
 
-        CCArmatureDataManager *armatureDataManager = CCArmatureDataManager::sharedArmatureDataManager();
+        CCArmatureDataManager *armatureDataManager = CCArmatureDataManager::getInstance();
 
         if(m_strName.length() != 0)
         {
@@ -491,7 +491,7 @@ void CCArmature::draw()
                 CCTextureAtlas *textureAtlas = skin->getTextureAtlas();
 
                 ccBlendFunc func = bone->getBlendFunc();
-                bool blendDirty = func.src != m_sBlendFunc.src || func.dst != m_sBlendFunc.dst;
+                bool blendDirty = func.src != CC_BLEND_SRC || func.dst != CC_BLEND_DST;
 
                 if(m_pAtlas != textureAtlas || blendDirty)
                 {

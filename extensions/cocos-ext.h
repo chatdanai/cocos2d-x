@@ -94,4 +94,6 @@
 
 #include "spine/spine-cocos2dx.h"
 
+#include "CocoStudio/CocoStudio.h"
+
 #endif /* __COCOS2D_EXT_H__ */
